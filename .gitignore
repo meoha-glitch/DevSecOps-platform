@@ -1,0 +1,5 @@
+.env
+*.kubeconfig
+secrets/
+*.token
+.vault-keys
