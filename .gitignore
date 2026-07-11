@@ -3,3 +3,8 @@
 secrets/
 *.token
 .vault-keys
+# Python
+__pycache__/
+*.pyc
+venv/
+.pytest_cache/
