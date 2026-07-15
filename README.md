@@ -18,3 +18,9 @@ monitoring (Prometheus, Grafana).
 - `.github/workflows/` : pipelines CI
 - `infra/` : scripts de provisioning des VMs et du cluster
 - `docs/` : documentation complémentaire
+
+## Cluster Kubernetes
+- vm-k8s-master : control-plane, Ready
+- vm-k8s-worker1 : worker, Ready
+- CNI : Calico v3.28.0
+- Pod network CIDR : 192.168.0.0/16
