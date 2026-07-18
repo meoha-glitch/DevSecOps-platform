@@ -1,0 +1,21 @@
+name: Hello Runner
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/github-runner
+
+jobs:
+  test-runner:
+    runs-on: self-hosted
+    steps:
+      - name: Say hello
+        run: echo "Le runner self-hosted fonctionne sur vm-tools !"
+
+      - name: Vérifier l'environnement
+        run: |
+          whoami
+          hostname
+          docker --version
+          kubectl version --client || echo "kubectl non installé sur ce runner"
