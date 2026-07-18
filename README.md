@@ -24,3 +24,8 @@ monitoring (Prometheus, Grafana).
 - vm-k8s-worker1 : worker, Ready
 - CNI : Calico v3.28.0
 - Pod network CIDR : 192.168.0.0/16
+
+## Ingress & Metrics
+- Helm 3 installé sur k8s-master
+- Ingress Controller : ingress-nginx (NodePort 30080/30443)
+- metrics-server : opérationnel (kubectl top disponible)
