@@ -29,3 +29,7 @@ monitoring (Prometheus, Grafana).
 - Helm 3 installé sur k8s-master
 - Ingress Controller : ingress-nginx (NodePort 30080/30443)
 - metrics-server : opérationnel (kubectl top disponible)
+
+## CI/CD
+- Runner GitHub Actions self-hosted installé sur vm-tools (service systemd actif)
+- Permet à la CI d'accéder au réseau privé (SonarQube, Vault, cluster K8s) sans exposition publique
