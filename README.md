@@ -38,3 +38,7 @@ monitoring (Prometheus, Grafana).
 - Déclenché sur push (main, feature/**) et Pull Request vers main
 - Étapes : installation des dépendances, tests unitaires (pytest), build de l'image Docker, smoke test /health
 - Exécuté sur le runner self-hosted (vm-tools)
+
+## Qualité de code
+- SonarQube Community déployé sur vm-tools (Docker Compose), accessible sur http://192.168.195.10:9000
+- Analyse automatique à chaque exécution du pipeline CI (job sonarqube-scan)
