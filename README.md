@@ -33,3 +33,8 @@ monitoring (Prometheus, Grafana).
 ## CI/CD
 - Runner GitHub Actions self-hosted installé sur vm-tools (service systemd actif)
 - Permet à la CI d'accéder au réseau privé (SonarQube, Vault, cluster K8s) sans exposition publique
+
+## Pipeline CI
+- Déclenché sur push (main, feature/**) et Pull Request vers main
+- Étapes : installation des dépendances, tests unitaires (pytest), build de l'image Docker, smoke test /health
+- Exécuté sur le runner self-hosted (vm-tools)
