@@ -42,3 +42,8 @@ monitoring (Prometheus, Grafana).
 ## Qualité de code
 - SonarQube Community déployé sur vm-tools (Docker Compose), accessible sur http://192.168.195.10:9000
 - Analyse automatique à chaque exécution du pipeline CI (job sonarqube-scan)
+
+## Quality Gate
+- Quality Gate "Sonar way" appliqué sur devsecops-demo-app
+- Pipeline CI bloquant : job sonarqube-scan + check obligatoire sur main
+
