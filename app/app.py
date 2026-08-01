@@ -15,5 +15,13 @@ def hello():
         version=version
     ), 200
 
+import subprocess
+
+@app.route("/debug")
+def debug():
+    cmd = "echo test"
+    result = subprocess.run(cmd, shell=True, capture_output=True)
+    return result.stdout
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
