@@ -47,3 +47,9 @@ monitoring (Prometheus, Grafana).
 - Quality Gate "Sonar way" appliqué sur devsecops-demo-app
 - Pipeline CI bloquant : job sonarqube-scan + check obligatoire sur main
 
+
+## Sécurité des images (Trivy)
+- Scan automatique de l'image Docker à chaque exécution du pipeline (job trivy-image-scan)
+- Bloque le pipeline sur toute vulnérabilité HIGH/CRITICAL avec correctif disponible
+- Les vulnérabilités sans correctif (ignore-unfixed) ne bloquent pas, car non actionnables
+- Premier scan ~25min (téléchargement de la base CVE), scans suivants nettement plus rapides
