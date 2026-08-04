@@ -53,3 +53,9 @@ monitoring (Prometheus, Grafana).
 - Bloque le pipeline sur toute vulnérabilité HIGH/CRITICAL avec correctif disponible
 - Les vulnérabilités sans correctif (ignore-unfixed) ne bloquent pas, car non actionnables
 - Premier scan ~25min (téléchargement de la base CVE), scans suivants nettement plus rapides
+
+## Sécurité de la configuration (Trivy IaC)
+- Scan du Dockerfile (et futurs manifests K8s/Helm) à chaque exécution du pipeline (job trivy-iac-scan)
+- Résultats visibles dans l'onglet Security > Code scanning de GitHub (format SARIF)
+- Bloque le pipeline sur toute mauvaise configuration HIGH/CRITICAL
+- Dockerfile durci : --no-install-recommends, HEALTHCHECK, mise à jour des paquets système
