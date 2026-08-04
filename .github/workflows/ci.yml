@@ -96,3 +96,37 @@ jobs:
           exit-code: '1'
           severity: 'HIGH,CRITICAL'
           ignore-unfixed: true
+
+  trivy-iac-scan:
+    runs-on: self-hosted
+    needs: build-and-test
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Scanner la configuration avec Trivy (SARIF)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: config
+          scan-ref: '.'
+          format: sarif
+          output: trivy-config-results.sarif
+          severity: 'HIGH,CRITICAL'
+
+      - name: Publier les résultats dans l'onglet Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-config-results.sarif
+
+      - name: Scanner la configuration (bloquant, lisible dans les logs)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: config
+          scan-ref: '.'
+          format: table
+          exit-code: '1'
+          severity: 'HIGH,CRITICAL'
