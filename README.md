@@ -59,3 +59,9 @@ monitoring (Prometheus, Grafana).
 - Résultats visibles dans l'onglet Security > Code scanning de GitHub (format SARIF)
 - Bloque le pipeline sur toute mauvaise configuration HIGH/CRITICAL
 - Dockerfile durci : --no-install-recommends, HEALTHCHECK, mise à jour des paquets système
+
+## Chart Helm
+- helm-charts/mon-app : Deployment (2 replicas), Service (ClusterIP), Ingress (nginx)
+- Probes liveness/readiness sur /health
+- Requests/limits CPU et mémoire définis
+- Testé avec helm lint, helm template, et une installation réelle de validation
