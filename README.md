@@ -65,3 +65,9 @@ monitoring (Prometheus, Grafana).
 - Probes liveness/readiness sur /health
 - Requests/limits CPU et mémoire définis
 - Testé avec helm lint, helm template, et une installation réelle de validation
+
+## ArgoCD
+- Installé dans le namespace argocd (manifest officiel)
+- Interface web accessible via NodePort sur k8s-master (port variable, voir kubectl get svc argocd-server -n argocd)
+- CLI argocd installée sur vm-tools
+- Script d'installation : infra/argocd/install.sh
