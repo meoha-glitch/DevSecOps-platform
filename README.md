@@ -71,3 +71,10 @@ monitoring (Prometheus, Grafana).
 - Interface web accessible via NodePort sur k8s-master (port variable, voir kubectl get svc argocd-server -n argocd)
 - CLI argocd installée sur vm-tools
 - Script d'installation : infra/argocd/install.sh
+
+## GitOps (ArgoCD)
+- Application ArgoCD "mon-app-dev" : infra/argocd/application-dev.yaml
+- Valeurs d'environnement dev : gitops/dev/values-dev.yaml
+- Sync automatique + selfHeal activés : toute dérive manuelle du cluster est
+  automatiquement corrigée pour revenir à l'état défini dans Git
+- Testé : scale manuel annulé automatiquement, changement via Git appliqué automatiquement
