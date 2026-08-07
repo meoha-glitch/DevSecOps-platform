@@ -130,3 +130,44 @@ jobs:
           format: table
           exit-code: '1'
           severity: 'HIGH,CRITICAL'
+  push-image:
+    runs-on: self-hosted
+    needs: [trivy-image-scan, trivy-iac-scan, sonarqube-scan]
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Connexion à GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Construire et pousser l'image
+        run: |
+          IMAGE=ghcr.io/${{ github.repository_owner }}/devsecops-demo-app
+          IMAGE=$(echo $IMAGE | tr '[:upper:]' '[:lower:]')
+          docker build -t $IMAGE:${{ github.sha }} -t $IMAGE:latest -f docker/Dockerfile .
+          docker push $IMAGE:${{ github.sha }}
+          docker push $IMAGE:latest
+
+      - name: Mettre à jour le tag d'image dans gitops/dev
+        run: |
+          sudo apt-get install -y yq 2>/dev/null || (sudo snap install yq 2>/dev/null || pip install yq --break-system-packages 2>/dev/null)
+          IMAGE_TAG="${{ github.sha }}"
+          sed -i "s/tag: \".*\"/tag: \"${IMAGE_TAG}\"/" gitops/dev/values-dev.yaml
+          cat gitops/dev/values-dev.yaml
+
+      - name: Commit et push du changement GitOps
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add gitops/dev/values-dev.yaml
+          git diff --staged --quiet && echo "Aucun changement" || git commit -m "chore: update dev image tag to ${{ github.sha }} [skip ci]"
+          git push
