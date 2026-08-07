@@ -10,7 +10,7 @@ FROM python:3.12-slim
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 
-RUN useradd --create-home --shell /bin/bash appuser
+RUN useradd --create-home --shell /bin/bash --uid 10001 appuser
 WORKDIR /app
 
 COPY --from=builder /root/.local /home/appuser/.local
