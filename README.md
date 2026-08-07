@@ -78,3 +78,14 @@ monitoring (Prometheus, Grafana).
 - Sync automatique + selfHeal activés : toute dérive manuelle du cluster est
   automatiquement corrigée pour revenir à l'état défini dans Git
 - Testé : scale manuel annulé automatiquement, changement via Git appliqué automatiquement
+
+## Boucle CI/CD complète
+- Job push-image : construit et pousse l'image vers ghcr.io après validation
+  de tous les contrôles qualité/sécurité (Sonar, Trivy image, Trivy IaC)
+- Mise à jour automatique du tag dans gitops/dev/values-dev.yaml par un commit bot
+- ArgoCD détecte et synchronise automatiquement le déploiement
+- Flux validé de bout en bout : commit → tests → build → scan → push → GitOps → déploiement
+- securityContext (pod + container) durci : non-root, UID fixe, readOnlyRootFilesystem,
+  capabilities dropped, seccompProfile RuntimeDefault
+- Volume emptyDir monté sur /tmp : nécessaire car gunicorn écrit des fichiers temporaires
+  de worker, incompatible avec readOnlyRootFilesystem sans cet espace dédié
