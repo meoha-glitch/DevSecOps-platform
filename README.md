@@ -89,3 +89,12 @@ monitoring (Prometheus, Grafana).
   capabilities dropped, seccompProfile RuntimeDefault
 - Volume emptyDir monté sur /tmp : nécessaire car gunicorn écrit des fichiers temporaires
   de worker, incompatible avec readOnlyRootFilesystem sans cet espace dédié
+
+## HashiCorp Vault
+- Déployé en mode production (Raft storage) dans le namespace vault
+- Nécessite local-path-provisioner comme StorageClass (voir infra/storage/local-path-provisioner.md)
+- UI accessible via kubectl get svc -n vault | grep vault-ui (port NodePort dynamique)
+- Vault Agent Injector activé 
+- IMPORTANT : Vault se reverrouille (sealed) à chaque redémarrage du pod ;
+  procédure de déverrouillage dans infra/vault/unseal-procedure.md
+- Clés d'unseal et root token stockés uniquement en local
