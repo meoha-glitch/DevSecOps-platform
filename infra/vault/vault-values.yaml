@@ -1,0 +1,45 @@
+server:
+  ha:
+    enabled: true
+    replicas: 1
+    raft:
+      enabled: true
+      setNodeId: true
+      config: |
+        ui = true
+
+        listener "tcp" {
+          address = "[::]:8200"
+          cluster_address = "[::]:8201"
+          tls_disable = true
+        }
+
+        storage "raft" {
+          path = "/vault/data"
+        }
+
+        service_registration "kubernetes" {}
+
+  dataStorage:
+    enabled: true
+    size: 2Gi
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  service:
+    enabled: true
+    type: NodePort
+    
+ui:
+  enabled: true
+  serviceType: NodePort
+  
+
+injector:
+  enabled: true
