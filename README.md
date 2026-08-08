@@ -98,3 +98,11 @@ monitoring (Prometheus, Grafana).
 - IMPORTANT : Vault se reverrouille (sealed) à chaque redémarrage du pod ;
   procédure de déverrouillage dans infra/vault/unseal-procedure.md
 - Clés d'unseal et root token stockés uniquement en local
+
+## Intégration Vault ↔ application
+- Authentification Kubernetes activée sur Vault (auth/kubernetes)
+- Moteur KV v2 sur le chemin secret/devsecops-demo-app/dev
+- Policy devsecops-app-policy : lecture seule, chemin unique (moindre privilège)
+- Rôle devsecops-app lié au ServiceAccount devsecops-app-sa (namespace dev)
+- Vault Agent Injector : secrets injectés dans /vault/secrets/db-creds au démarrage du pod
+- Aucun secret n'apparaît dans Git ni dans les manifests Kubernetes
