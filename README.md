@@ -113,3 +113,7 @@ monitoring (Prometheus, Grafana).
 - Alertmanager UI : http://192.168.195.11:30903
 - Application instrumentée avec prometheus-flask-exporter (endpoint /metrics)
 - ServiceMonitor mon-app-dev configuré pour scraper toutes les 15s
+
+## Monitoring
+
+L'application expose les métriques Prometheus sur `/metrics`.
