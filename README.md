@@ -106,3 +106,10 @@ monitoring (Prometheus, Grafana).
 - Rôle devsecops-app lié au ServiceAccount devsecops-app-sa (namespace dev)
 - Vault Agent Injector : secrets injectés dans /vault/secrets/db-creds au démarrage du pod
 - Aucun secret n'apparaît dans Git ni dans les manifests Kubernetes
+
+## Monitoring (Prometheus)
+- kube-prometheus-stack installé dans le namespace monitoring
+- Prometheus UI : http://192.168.195.11:30900
+- Alertmanager UI : http://192.168.195.11:30903
+- Application instrumentée avec prometheus-flask-exporter (endpoint /metrics)
+- ServiceMonitor mon-app-dev configuré pour scraper toutes les 15s
