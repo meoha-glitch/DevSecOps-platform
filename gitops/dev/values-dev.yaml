@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: ghcr.io/meoha-glitch/devsecops-demo-app
-  tag: "e6271bc214ace37c0ff975bb82b0b359fa7f90fb"
+  tag: "2e22d62c2f597facc3a820e3ecbf6a4fca95770a"
   pullPolicy: Always
 
 service:
