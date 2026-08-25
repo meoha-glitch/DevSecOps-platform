@@ -114,6 +114,10 @@ monitoring (Prometheus, Grafana).
 - Application instrumentée avec prometheus-flask-exporter (endpoint /metrics)
 - ServiceMonitor mon-app-dev configuré pour scraper toutes les 15s
 
-## Monitoring
+## Monitoring (Grafana & Alerting)
+- Grafana activé (namespace monitoring), UI : http://192.168.195.11:30901
+- Prometheus UI : http://192.168.195.11:30900
+- Dashboard custom "DevSecOps App Dashboard" versionné dans monitoring/dashboards/
+  (requêtes HTTP totales + latence moyenne, basées sur flask_http_request_total)
 
-L'application expose les métriques Prometheus sur `/metrics`.
+
