@@ -1,32 +1,17 @@
 prometheus:
   prometheusSpec:
-    retention: 2d
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        cpu: 300m
-        memory: 512Mi
-    serviceMonitorSelectorNilUsesHelmValues: false
-
-  service:
-    type: NodePort
-    nodePort: 30900
-
-alertmanager:
-  alertmanagerSpec:
+    retention: 1d
     resources:
       requests:
         cpu: 50m
-        memory: 128Mi
+        memory: 100Mi
       limits:
-        cpu: 100m
-        memory: 256Mi
+        cpu: 150m
+        memory: 200Mi
+    serviceMonitorSelectorNilUsesHelmValues: false
   service:
     type: NodePort
-    nodePort: 30903
-
+    nodePort: 30900
 grafana:
   enabled: true
   service:
@@ -34,14 +19,38 @@ grafana:
     nodePort: 30901
   resources:
     requests:
-      cpu: 100m
-      memory: 256Mi
-    limits:
       cpu: 200m
-      memory: 512Mi
+      memory: 250Mi
+    limits:
+      cpu: 500m
+      memory: 400Mi
+  persistence:
+    enabled: false
+  livenessProbe:
+    initialDelaySeconds: 150
+    timeoutSeconds: 30
+    periodSeconds: 15
+    failureThreshold: 10
+  readinessProbe:
+    initialDelaySeconds: 120
+    timeoutSeconds: 15
+    periodSeconds: 15
+    failureThreshold: 10
+
+alertmanager:
+  enabled: false
 
 nodeExporter:
-  enabled: true
+  enabled: false
 
 kubeStateMetrics:
-  enabled: true
+  enabled: false
+
+prometheusOperator:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
+    limits:
+      cpu: 150m
+      memory: 200Mi
