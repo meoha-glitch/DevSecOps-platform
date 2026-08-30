@@ -86,7 +86,7 @@ jobs:
 
       - name: Construire l'image à scanner
         run: |
-          docker build --pull --no-cache -t $IMAGE:${{ github.sha }} -t $IMAGE:latest -f docker/Dockerfile .
+          docker build --pull --no-cache -t devsecops-demo-app:${{ github.sha }} -f docker/Dockerfile .
 
       - name: Scanner l'image avec Trivy
         uses: aquasecurity/trivy-action@master
