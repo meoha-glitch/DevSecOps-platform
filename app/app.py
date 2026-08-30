@@ -12,7 +12,7 @@ def health():
 def hello():
     version = os.environ.get("APP_VERSION", "dev")
     return jsonify(
-        message="Bienvenue sur la plateforme DevSecOps",
+        message="Plateforme DevSecOps — Test End-to-End validé",
         version=version
     ), 200
 
