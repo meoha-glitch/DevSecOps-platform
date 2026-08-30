@@ -44,7 +44,7 @@ jobs:
 
       - name: Construire l'image Docker
         run: |
-          docker build -t devsecops-demo-app:${{ github.sha }} -f docker/Dockerfile .
+          docker build --pull --no-cache -t devsecops-demo-app:${{ github.sha }} -f docker/Dockerfile .
 
       - name: Vérifier que l'image tourne correctement
         run: |
@@ -86,7 +86,7 @@ jobs:
 
       - name: Construire l'image à scanner
         run: |
-          docker build -t devsecops-demo-app:${{ github.sha }} -f docker/Dockerfile .
+          docker build --pull --no-cache -t devsecops-demo-app:${{ github.sha }} -f docker/Dockerfile .
 
       - name: Scanner l'image avec Trivy
         uses: aquasecurity/trivy-action@master
@@ -153,7 +153,7 @@ jobs:
         run: |
           IMAGE=ghcr.io/${{ github.repository_owner }}/devsecops-demo-app
           IMAGE=$(echo $IMAGE | tr '[:upper:]' '[:lower:]')
-          docker build -t $IMAGE:${{ github.sha }} -t $IMAGE:latest -f docker/Dockerfile .
+          docker build --pull --no-cache -t $IMAGE:${{ github.sha }} -t $IMAGE:latest -f docker/Dockerfile .
           docker push $IMAGE:${{ github.sha }}
           docker push $IMAGE:latest
 
